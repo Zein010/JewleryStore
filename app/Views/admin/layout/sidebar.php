@@ -1,6 +1,6 @@
         <!-- Sidebar -->
         <div class="bg-light border-right" id="sidebar-wrapper">
-            <div class="sidebar-heading text-bg-dark">Luxe Admin</div>
+            <div class="sidebar-heading text-bg-dark"><?= esc($site_settings['company_name'] ?? 'Luxe Admin') ?></div>
             <div class="list-group list-group-flush">
                 <a href="<?= base_url('admin/dashboard') ?>" class="list-group-item list-group-item-action list-group-item-light p-3 <?= uri_string() == 'admin/dashboard' ? 'active' : '' ?>">
                     <i class="bi bi-speedometer2 me-2"></i> Dashboard
