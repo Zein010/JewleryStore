@@ -13,7 +13,7 @@ class DataFixer extends BaseController
         $products = $model->findAll();
         
         $matches = [];
-        
+        echo json_encode($products);
         echo "<h1>Data Fixer Preview</h1>";
         echo "<p>Checking " . count($products) . " products...</p>";
         echo "<table border='1' cellpadding='10' style='border-collapse: collapse;'>";
