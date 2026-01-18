@@ -9,12 +9,12 @@ class Home extends BaseController
     public function index()
     {
         $productModel = new ProductModel();
+        $categoryModel = new \App\Models\CategoryModel();
         
-        // For now, since we have no data, we will just pass empty or mock data if needed
-        // But ideally we display featured products
         $data = [
             'title' => 'Home',
-            'featured_products' => $productModel->getFeatured()
+            'featured_products' => $productModel->getFeatured(),
+            'categories' => $categoryModel->findAll(5) // Fetch top 5 for the layout
         ];
 
         return view('templates/header', $data)

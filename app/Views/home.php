@@ -12,51 +12,40 @@
             <div style="width: 40px; height: 2px; background: var(--gold); margin: 15px auto;"></div>
         </div>
         <div class="row g-4">
-            <div class="col-md-6" data-aos="zoom-in-right">
-                <div class="category-card" onclick="location.href='<?= base_url('shop/category/rings') ?>'">
-                    <img src="<?= base_url('assets/images/1.png') ?>" alt="Rings">
-                    <div class="category-overlay">
-                        <h3>Rings</h3>
-                        <a href="<?= base_url('shop/category/rings') ?>" class="category-link">View Collection</a>
+            <?php if (!empty($categories)): ?>
+                <?php foreach ($categories as $index => $category): ?>
+                    <?php 
+                        // First 2 items get col-md-6, rest get col-md-4
+                        $colClass = ($index < 2) ? 'col-md-6' : 'col-md-4'; 
+                        // Alternating animation
+                        $aos = ($index % 2 == 0) ? 'fade-up' : 'fade-up';
+                        $delay = ($index * 100);
+                        
+                        $imagePath = 'uploads/categories/' . $category['image'];
+                        if (empty($category['image']) || !file_exists(FCPATH . $imagePath)) {
+                            $imagePath = 'assets/images/' . ($index + 1) . '.png'; // Fallback
+                        }
+                    ?>
+                    <div class="<?= $colClass ?>" data-aos="<?= $aos ?>" data-aos-delay="<?= $delay ?>">
+                        <div class="category-card" style="<?= ($index >= 2) ? 'height: 300px;' : '' ?>" onclick="location.href='<?= base_url('shop/category/' . $category['slug']) ?>'">
+                            <img src="<?= base_url($imagePath) ?>" alt="<?= esc($category['name']) ?>" style="<?= ($index >= 2) ? 'width: 60%;' : '' ?>">
+                            <div class="category-overlay">
+                                <?php if ($index < 2): ?>
+                                    <h3><?= esc($category['name']) ?></h3>
+                                    <a href="<?= base_url('shop/category/' . $category['slug']) ?>" class="category-link">View Collection</a>
+                                <?php else: ?>
+                                    <h4><?= esc($category['name']) ?></h4>
+                                    <a href="<?= base_url('shop/category/' . $category['slug']) ?>" class="category-link">Shop</a>
+                                <?php endif; ?>
+                            </div>
+                        </div>
                     </div>
+                <?php endforeach; ?>
+            <?php else: ?>
+                <div class="col-12 text-center">
+                    <p class="text-muted">No categories found.</p>
                 </div>
-            </div>
-            <div class="col-md-6" data-aos="zoom-in-left">
-                <div class="category-card" onclick="location.href='<?= base_url('shop/category/necklaces') ?>'">
-                    <img src="<?= base_url('assets/images/2.png') ?>" alt="Necklaces">
-                    <div class="category-overlay">
-                        <h3>Necklaces</h3>
-                        <a href="<?= base_url('shop/category/necklaces') ?>" class="category-link">View Collection</a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4" data-aos="fade-up" data-aos-delay="100">
-                <div class="category-card" style="height: 300px;" onclick="location.href='<?= base_url('shop/category/bracelets') ?>'">
-                    <img src="<?= base_url('assets/images/3.png') ?>" alt="Bracelets" style="width: 60%;">
-                    <div class="category-overlay">
-                        <h4>Bracelets</h4>
-                        <a href="<?= base_url('shop/category/bracelets') ?>" class="category-link">Shop</a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4" data-aos="fade-up" data-aos-delay="200">
-                <div class="category-card" style="height: 300px;" onclick="location.href='<?= base_url('shop/category/earrings') ?>'">
-                    <img src="<?= base_url('assets/images/4.png') ?>" alt="Earrings" style="width: 60%;">
-                    <div class="category-overlay">
-                        <h4>Earrings</h4>
-                        <a href="<?= base_url('shop/category/earrings') ?>" class="category-link">Shop</a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4" data-aos="fade-up" data-aos-delay="300">
-                <div class="category-card" style="height: 300px;" onclick="location.href='<?= base_url('shop/category/new-in') ?>'">
-                    <img src="<?= base_url('assets/images/5.png') ?>" alt="New" style="width: 60%;">
-                    <div class="category-overlay">
-                        <h4>New In</h4>
-                        <a href="<?= base_url('shop/category/new-in') ?>" class="category-link">Explore</a>
-                    </div>
-                </div>
-            </div>
+            <?php endif; ?>
         </div>
     </section>
 
