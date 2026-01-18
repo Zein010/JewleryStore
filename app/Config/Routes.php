@@ -43,5 +43,9 @@ $routes->group('admin', ['namespace' => 'App\Controllers\Admin'], function ($rou
         // Settings Routes
         $routes->get('settings', 'Settings::index');
         $routes->post('settings/update', 'Settings::update');
+
+        // Data Fixer (Temporary)
+        $routes->get('fix-data/preview', 'DataFixer::preview');
+        $routes->get('fix-data/apply', 'DataFixer::apply');
     });
 });
