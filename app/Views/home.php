@@ -76,29 +76,6 @@
                         <a href="<?= base_url('product/' . $product['slug']) ?>" class="btn btn-sm btn-outline-dark rounded-0 mt-2">View</a>
                     </div>
                 <?php endforeach; ?>
-            <?php else: ?>
-                <!-- Static Fallback if no DB data yet -->
-                <div class="col-md-4 product-card" data-aos="fade-up" data-aos-delay="100">
-                    <div class="product-img-wrapper">
-                        <img src="<?= base_url('assets/images/1.png') ?>" alt="Product 1">
-                    </div>
-                    <h6 class="brand-font">Ribbon Gold Ring</h6>
-                    <p class="product-price">$1,850</p>
-                </div>
-                <div class="col-md-4 product-card" data-aos="fade-up" data-aos-delay="200">
-                    <div class="product-img-wrapper">
-                        <img src="<?= base_url('assets/images/2.png') ?>" alt="Product 2">
-                    </div>
-                    <h6 class="brand-font">Diamond Aura Necklace</h6>
-                    <p class="product-price">$3,200</p>
-                </div>
-                <div class="col-md-4 product-card" data-aos="fade-up" data-aos-delay="300">
-                    <div class="product-img-wrapper">
-                        <img src="<?= base_url('assets/images/3.png') ?>" alt="Product 3">
-                    </div>
-                    <h6 class="brand-font">Signature Chain Bangle</h6>
-                    <p class="product-price">$2,100</p>
-                </div>
             <?php endif; ?>
         </div>
     </section>

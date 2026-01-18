@@ -73,23 +73,9 @@
                             </div>
                         <?php endforeach; ?>
                     <?php else: ?>
-                        <!-- Static Fallback / Demo -->
-                        <div class="col-md-6 col-xl-4 product-item" data-aos="fade-up" data-aos-delay="100">
-                            <div class="product-img-box">
-                                <img src="<?= base_url('assets/images/1.png') ?>" alt="Ring 1">
-                                <a href="#" class="quick-add">Quick View</a>
-                            </div>
-                            <h6 class="mt-3 brand-font mb-1">Ribbon Diamond Ring</h6>
-                            <p class="price">$1,450</p>
-                        </div>
-
-                        <div class="col-md-6 col-xl-4 product-item" data-aos="fade-up" data-aos-delay="200">
-                            <div class="product-img-box">
-                                <img src="<?= base_url('assets/images/2.png') ?>" alt="Ring 2">
-                                <a href="#" class="quick-add">Quick View</a>
-                            </div>
-                            <h6 class="mt-3 brand-font mb-1">Eternal Solitaire</h6>
-                            <p class="price">$2,900</p>
+                        <div class="col-12 text-center py-5">
+                            <h4 class="text-muted fw-light">No products found.</h4>
+                            <p class="text-muted small">Try adjusting your filters or check back later.</p>
                         </div>
                     <?php endif; ?>
                 </div>
