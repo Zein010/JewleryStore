@@ -56,15 +56,15 @@
                 <div class="row">
                     <div class="col-md-4 mb-3">
                         <label for="facebook_link" class="form-label">Facebook URL</label>
-                        <input type="url" class="form-control" id="facebook_link" name="facebook_link" value="<?= esc($settings['facebook_link'] ?? '') ?>">
+                        <input type="text" class="form-control" id="facebook_link" name="facebook_link" value="<?= esc($settings['facebook_link'] ?? '') ?>">
                     </div>
                     <div class="col-md-4 mb-3">
                         <label for="instagram_link" class="form-label">Instagram URL</label>
-                        <input type="url" class="form-control" id="instagram_link" name="instagram_link" value="<?= esc($settings['instagram_link'] ?? '') ?>">
+                        <input type="text" class="form-control" id="instagram_link" name="instagram_link" value="<?= esc($settings['instagram_link'] ?? '') ?>">
                     </div>
                     <div class="col-md-4 mb-3">
                         <label for="pinterest_link" class="form-label">Pinterest URL</label>
-                        <input type="url" class="form-control" id="pinterest_link" name="pinterest_link" value="<?= esc($settings['pinterest_link'] ?? '') ?>">
+                        <input type="text" class="form-control" id="pinterest_link" name="pinterest_link" value="<?= esc($settings['pinterest_link'] ?? '') ?>">
                     </div>
                 </div>
 
