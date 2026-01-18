@@ -32,8 +32,8 @@ class DataFixer extends BaseController
             }
 
             // Regex refined for "Values Grams : Value Karat"
-            // Captures "3 - 7 Grams" and "18 Karat"
-            if (preg_match('/^(.+?Grams?)\s*:\s*(.+?Karat.*)$/i', trim($details), $m)) {
+            // Added 's' modifier to handle potential newlines
+            if (preg_match('/^(.+?Grams?)\s*:\s*(.+?Karat.*)$/is', trim($details), $m)) {
                 $weight = trim($m[1]);
                 $material = trim($m[2]);
                 
