@@ -14,7 +14,7 @@ class Home extends BaseController
         $data = [
             'title' => 'Home',
             'featured_products' => $productModel->getFeatured(),
-            'categories' => $categoryModel->findAll(5) // Fetch top 5 for the layout
+            'categories' => $categoryModel->where('is_featured', 1)->findAll(5) // Fetch top 5 featured for the layout
         ];
 
         return view('templates/header', $data)

@@ -4,21 +4,25 @@ namespace App\Controllers\Admin;
 
 use App\Controllers\BaseController;
 use App\Models\SettingsModel;
+use App\Models\CategoryModel;
 
 class Settings extends BaseController
 {
     protected $settingsModel;
+    protected $categoryModel;
 
     public function __construct()
     {
         $this->settingsModel = new SettingsModel();
+        $this->categoryModel = new CategoryModel();
     }
 
     public function index()
     {
         $data = [
             'title' => 'General Settings',
-            'settings' => $this->settingsModel->getSettings()
+            'settings' => $this->settingsModel->getSettings(),
+            'categories' => $this->categoryModel->findAll()
         ];
 
         return view('admin/layout/header', $data)
@@ -46,10 +50,11 @@ class Settings extends BaseController
         }
 
         // Update other text settings
-        // We iterate through known keys or just all post data excluding specific fields
         $keys = [
             'company_name', 'contact_email', 'contact_phone', 'contact_address',
-            'facebook_link', 'instagram_link', 'pinterest_link'
+            'facebook_link', 'instagram_link', 'pinterest_link',
+            'smtp_host', 'smtp_user', 'smtp_pass', 'smtp_port', 'smtp_crypto', 'admin_email_notify',
+            'header_category_id'
         ];
 
         foreach ($keys as $key) {

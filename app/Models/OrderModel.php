@@ -4,15 +4,14 @@ namespace App\Models;
 
 use CodeIgniter\Model;
 
-class CategoryModel extends Model
+class OrderModel extends Model
 {
-    protected $table            = 'categories';
+    protected $table            = 'orders';
     protected $primaryKey       = 'id';
     protected $useAutoIncrement = true;
     protected $returnType       = 'array';
     protected $useSoftDeletes   = false;
-    protected $protectFields    = true;
-    protected $allowedFields    = ['name', 'slug', 'image', 'is_featured'];
+    protected $allowedFields    = ['customer_name', 'customer_email', 'country', 'phone', 'shipping_address', 'total_amount', 'status'];
 
     protected $useTimestamps = true;
     protected $createdField  = 'created_at';

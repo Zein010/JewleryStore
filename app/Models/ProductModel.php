@@ -12,7 +12,7 @@ class ProductModel extends Model
     protected $returnType       = 'array';
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
-    protected $allowedFields    = ['category_id', 'name', 'slug', 'price', 'description', 'image', 'featured', 'details'];
+    protected $allowedFields    = ['category_id', 'name', 'slug', 'price', 'description', 'image', 'featured', 'details', 'customization_type', 'character_limit', 'limit_type'];
 
     protected $useTimestamps = true;
     protected $createdField  = 'created_at';
@@ -34,6 +34,64 @@ class ProductModel extends Model
                     ->findAll();
     }
 
+    public function getDynamicFilters($categoryId = null)
+    {
+        $builder = $this->builder();
+        
+        if ($categoryId) {
+            $builder->where('category_id', $categoryId);
+        }
+
+        $products = $builder->get()->getResultArray();
+
+        $dynamicFilters = [];
+        $prices = [];
+        
+        foreach ($products as $product) {
+            if (!empty($product['price'])) {
+                $prices[] = $product['price'];
+            }
+
+            if (!empty($product['details'])) {
+                $details = json_decode($product['details'], true);
+                if (is_array($details)) {
+                    foreach ($details as $key => $value) {
+                         // Normalize Key
+                         $key = ucwords(str_replace('_', ' ', $key));
+                         
+                         if (!isset($dynamicFilters[$key])) {
+                             $dynamicFilters[$key] = [];
+                         }
+                         if (!in_array($value, $dynamicFilters[$key])) {
+                             $dynamicFilters[$key][] = $value;
+                         }
+                    }
+                }
+            }
+        }
+
+        // Calculate Price Ranges
+        $priceRanges = [];
+        if (!empty($prices)) {
+             $minPrice = floor(min($prices) / 1000) * 1000;
+             $maxPrice = ceil(max($prices) / 1000) * 1000;
+
+             for ($i = $minPrice; $i < $maxPrice; $i += 1000) {
+                 $end = $i + 1000;
+                 $priceRanges[] = [
+                     'min' => $i,
+                     'max' => $end,
+                     'label' => '$' . number_format($i) . ' - $' . number_format($end)
+                 ];
+             }
+        }
+
+        return [
+            'filters' => $dynamicFilters,
+            'price_ranges' => $priceRanges
+        ];
+    }
+
     public function filterProducts($categoryId, $filters = [])
     {
         $builder = $this->select('products.*, product_images.image as image')
@@ -51,15 +109,25 @@ class ProductModel extends Model
             $builder->where('price <=', $filters['max_price']);
         }
 
-        // Material Filter (JSON Search)
-        if (!empty($filters['material'])) {
-            // Simple LIKE search for JSON structure
-            // We search for key "Material" and the specific value
-            // Note: Use addslashes/escaping carefully or native JSON functions if available
-            // For wide compatibility with text columns:
-            $material = $this->db->escapeLikeString($filters['material']);
-            // Looking for "Material":"InputValue" pattern roughly
-            $builder->like('details', '"Material":"' . $material . '"');
+        // Dynamic Filters (JSON Search)
+        foreach ($filters as $key => $value) {
+            // Skip standard filters
+            if (in_array($key, ['min_price', 'max_price', 'sort', 'page', 'per_page'])) {
+                continue;
+            }
+
+            if (!empty($value)) {
+                // Safe JSON search using LIKE
+                // Matches "Key": "Value" pattern
+                $key = $this->db->escapeLikeString($key);
+                $value = $this->db->escapeLikeString($value);
+                
+                // Allow for slight variations in JSON spacing if needed, but standard is "Key": "Value"
+                $builder->groupStart()
+                        ->like('details', '"' . $key . '": "' . $value . '"')
+                        ->orLike('details', '"' . $key . '":"' . $value . '"')
+                        ->groupEnd();
+            }
         }
 
         // Sort

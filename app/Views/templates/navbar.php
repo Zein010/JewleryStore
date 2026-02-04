@@ -6,7 +6,10 @@
             <div class="collapse navbar-collapse" id="mainNav">
                 <ul class="navbar-nav mx-auto align-items-center">
                     <li class="nav-item"><a class="nav-link" href="<?= base_url('shop') ?>">Collections</a></li>
-                    <li class="nav-item"><a class="nav-link" href="<?= base_url('shop/category/high-jewelry') ?>">High Jewelry</a></li>
+                    
+                    <?php if (!empty($header_category)): ?>
+                        <li class="nav-item"><a class="nav-link" href="<?= base_url('shop/category/' . $header_category['slug']) ?>"><?= esc($header_category['name']) ?></a></li>
+                    <?php endif; ?>
                     <li class="nav-item">
                         <a class="navbar-brand brand-font mx-4" href="<?= base_url('/') ?>">
                             <?php if (!empty($site_settings['company_logo'])): ?>

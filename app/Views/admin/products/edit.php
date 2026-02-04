@@ -108,7 +108,51 @@
                 <label class="form-check-label" for="featured">Featured Product</label>
             </div>
 
+            <!-- Customization Settings -->
+            <div class="card p-3 mb-3 bg-light">
+                <h6 class="mb-3">Customization Options</h6>
+                <div class="mb-3">
+                    <label for="customization_type" class="form-label">Customization Type</label>
+                    <select class="form-select" id="customization_type" name="customization_type">
+                        <option value="none" <?= ($product['customization_type'] ?? 'none') == 'none' ? 'selected' : '' ?>>None</option>
+                        <option value="text" <?= ($product['customization_type'] ?? 'none') == 'text' ? 'selected' : '' ?>>Text Required</option>
+                    </select>
+                </div>
+                
+                <div id="text_constraints" style="display: <?= ($product['customization_type'] ?? 'none') == 'text' ? 'block' : 'none' ?>;">
+                     <div class="mb-3">
+                        <label for="character_limit" class="form-label">Character/Item Limit</label>
+                        <select class="form-select" id="character_limit" name="character_limit">
+                            <option value="1" <?= ($product['character_limit'] ?? '') == 1 ? 'selected' : '' ?>>1 Letter</option>
+                            <option value="2" <?= ($product['character_limit'] ?? '') == 2 ? 'selected' : '' ?>>2 Letters</option>
+                            <option value="3" <?= ($product['character_limit'] ?? '') == 3 ? 'selected' : '' ?>>3 Letters</option>
+                            <option value="4" <?= ($product['character_limit'] ?? '') == 4 ? 'selected' : '' ?>>4 Letters</option>
+                            <option value="5" <?= ($product['character_limit'] ?? '') == 5 ? 'selected' : '' ?>>5 Letters</option>
+                            <option value="0" <?= ($product['character_limit'] ?? '') == 0 ? 'selected' : '' ?>>Sentence (No strict limit)</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label for="limit_type" class="form-label">Constraint Type</label>
+                        <select class="form-select" id="limit_type" name="limit_type">
+                            <option value="exact" <?= ($product['limit_type'] ?? '') == 'exact' ? 'selected' : '' ?>>Exactly</option>
+                            <option value="upto" <?= ($product['limit_type'] ?? '') == 'upto' ? 'selected' : '' ?>>Up To</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
             <button type="submit" class="btn btn-primary">Update Product</button>
+
+            <script>
+                document.getElementById('customization_type').addEventListener('change', function() {
+                    const constraints = document.getElementById('text_constraints');
+                    if (this.value === 'text') {
+                        constraints.style.display = 'block';
+                    } else {
+                        constraints.style.display = 'none';
+                    }
+                });
+            </script>
         </form>
     </div>
 </div>

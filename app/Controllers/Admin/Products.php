@@ -88,7 +88,10 @@ class Products extends BaseController
             'price'       => $this->request->getPost('price'),
             'description' => $this->request->getPost('description'),
             'featured'    => $this->request->getPost('featured') ? 1 : 0,
-            'details'     => json_encode($details)
+            'details'     => json_encode($details),
+            'customization_type' => $this->request->getPost('customization_type'),
+            'character_limit'    => $this->request->getPost('character_limit'),
+            'limit_type'         => $this->request->getPost('limit_type'),
         ]);
 
         // Handle Image Uploads
@@ -169,7 +172,10 @@ class Products extends BaseController
             'price'       => $this->request->getPost('price'),
             'description' => $this->request->getPost('description'),
             'featured'    => $this->request->getPost('featured') ? 1 : 0,
-            'details'     => json_encode($details)
+            'details'     => json_encode($details),
+            'customization_type' => $this->request->getPost('customization_type'),
+            'character_limit'    => $this->request->getPost('character_limit'),
+            'limit_type'         => $this->request->getPost('limit_type'),
         ]);
 
         // Handle New Image Uploads

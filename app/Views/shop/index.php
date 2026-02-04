@@ -25,20 +25,40 @@
                     return $baseUrl . '?' . http_build_query($params);
                 };
                 ?>
-                <span class="filter-title">Material</span>
-                <ul class="filter-list">
-                    <li><a href="<?= $buildFilterUrl(['material' => '18K Yellow Gold']) ?>" class="<?= ($current_filters['material'] ?? '') == '18K Yellow Gold' ? 'text-warning' : '' ?>">18K Yellow Gold</a></li>
-                    <li><a href="<?= $buildFilterUrl(['material' => '18K Rose Gold']) ?>" class="<?= ($current_filters['material'] ?? '') == '18K Rose Gold' ? 'text-warning' : '' ?>">18K Rose Gold</a></li>
-                    <li><a href="<?= $buildFilterUrl(['material' => '18K White Gold']) ?>" class="<?= ($current_filters['material'] ?? '') == '18K White Gold' ? 'text-warning' : '' ?>">18K White Gold</a></li>
-                    <li><a href="<?= $buildFilterUrl(['material' => 'Platinum']) ?>" class="<?= ($current_filters['material'] ?? '') == 'Platinum' ? 'text-warning' : '' ?>">Platinum</a></li>
-                </ul>
+                <?php if (!empty($dynamic_filters)): ?>
+                    <?php foreach ($dynamic_filters as $key => $values): ?>
+                        <span class="filter-title"><?= esc($key) ?></span>
+                        <ul class="filter-list">
+                            <?php foreach ($values as $value): ?>
+                                <?php 
+                                    $facetFilter = [$key => $value];
+                                    // preserve other filters
+                                ?>
+                                <li>
+                                    <a href="<?= $buildFilterUrl($facetFilter) ?>" 
+                                       class="<?= ($current_filters[$key] ?? '') == $value ? 'text-warning' : '' ?>">
+                                       <?= esc($value) ?>
+                                    </a>
+                                </li>
+                            <?php endforeach; ?>
+                        </ul>
+                    <?php endforeach; ?>
+                <?php endif; ?>
 
                 <span class="filter-title">Price Range</span>
                 <ul class="filter-list">
-                    <li><a href="<?= $buildFilterUrl(['max_price' => 1000, 'min_price' => null]) ?>" class="<?= ($current_filters['max_price'] ?? '') == 1000 && empty($current_filters['min_price']) ? 'text-warning' : '' ?>">Under $1,000</a></li>
-                    <li><a href="<?= $buildFilterUrl(['min_price' => 1000, 'max_price' => 3000]) ?>" class="<?= ($current_filters['min_price'] ?? '') == 1000 && ($current_filters['max_price'] ?? '') == 3000 ? 'text-warning' : '' ?>">$1,000 - $3,000</a></li>
-                    <li><a href="<?= $buildFilterUrl(['min_price' => 3000, 'max_price' => 10000]) ?>" class="<?= ($current_filters['min_price'] ?? '') == 3000 && ($current_filters['max_price'] ?? '') == 10000 ? 'text-warning' : '' ?>">$3,000 - $10,000</a></li>
-                    <li><a href="<?= $buildFilterUrl(['min_price' => 10000, 'max_price' => null]) ?>" class="<?= ($current_filters['min_price'] ?? '') == 10000 && empty($current_filters['max_price']) ? 'text-warning' : '' ?>">High Jewelry (Over $10k)</a></li>
+                    <?php if (!empty($price_ranges)): ?>
+                        <?php foreach ($price_ranges as $range): ?>
+                            <li>
+                                <a href="<?= $buildFilterUrl(['min_price' => $range['min'], 'max_price' => $range['max']]) ?>" 
+                                   class="<?= ($current_filters['min_price'] ?? '') == $range['min'] && ($current_filters['max_price'] ?? '') == $range['max'] ? 'text-warning' : '' ?>">
+                                   <?= $range['label'] ?>
+                                </a>
+                            </li>
+                        <?php endforeach; ?>
+                    <?php else: ?>
+                        <li><span class="text-muted small">No prices available</span></li>
+                    <?php endif; ?>
                     <li><a href="<?= $current_slug ? base_url('shop/category/' . $current_slug) : base_url('shop') ?>" class="text-muted">Clear Filters</a></li>
                 </ul>
             </aside>

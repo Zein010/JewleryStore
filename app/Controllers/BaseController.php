@@ -45,8 +45,18 @@ abstract class BaseController extends Controller
         // Load Global Settings
         $settingsModel = new \App\Models\SettingsModel();
         $site_settings = $settingsModel->getSettings();
+
+        // Fetch Header Category if set
+        $headerCategory = null;
+        if (!empty($site_settings['header_category_id'])) {
+            $categoryModel = new \App\Models\CategoryModel();
+            $headerCategory = $categoryModel->find($site_settings['header_category_id']);
+        }
         
         // Share with all views
-        service('renderer')->setData(['site_settings' => $site_settings]);
+        service('renderer')->setData([
+            'site_settings' => $site_settings,
+            'header_category' => $headerCategory
+        ]);
     }
 }

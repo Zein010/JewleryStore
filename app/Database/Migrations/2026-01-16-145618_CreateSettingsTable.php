@@ -34,20 +34,22 @@ class CreateSettingsTable extends Migration
             ],
         ]);
         $this->forge->addKey('id', true);
-        $this->forge->createTable('settings');
+        $this->forge->createTable('settings', true);
 
-        // Seed default settings
-        $data = [
-            ['key' => 'company_name',    'value' => 'Luxe & Co.', 'created_at' => date('Y-m-d H:i:s')],
-            ['key' => 'company_logo',    'value' => '', 'created_at' => date('Y-m-d H:i:s')], // Upload path
-            ['key' => 'contact_email',   'value' => 'info@luxeandco.com', 'created_at' => date('Y-m-d H:i:s')],
-            ['key' => 'contact_phone',   'value' => '+961 1 123 456', 'created_at' => date('Y-m-d H:i:s')],
-            ['key' => 'contact_address', 'value' => 'Beirut, Lebanon', 'created_at' => date('Y-m-d H:i:s')],
-            ['key' => 'facebook_link',   'value' => '#', 'created_at' => date('Y-m-d H:i:s')],
-            ['key' => 'instagram_link',  'value' => '#', 'created_at' => date('Y-m-d H:i:s')],
-            ['key' => 'pinterest_link',  'value' => '#', 'created_at' => date('Y-m-d H:i:s')],
-        ];
-        $this->db->table('settings')->insertBatch($data);
+        // Seed default settings only if table is empty
+        if ($this->db->table('settings')->countAll() == 0) {
+            $data = [
+                ['key' => 'company_name',    'value' => 'Luxe & Co.', 'created_at' => date('Y-m-d H:i:s')],
+                ['key' => 'company_logo',    'value' => '', 'created_at' => date('Y-m-d H:i:s')], // Upload path
+                ['key' => 'contact_email',   'value' => 'info@luxeandco.com', 'created_at' => date('Y-m-d H:i:s')],
+                ['key' => 'contact_phone',   'value' => '+961 1 123 456', 'created_at' => date('Y-m-d H:i:s')],
+                ['key' => 'contact_address', 'value' => 'Beirut, Lebanon', 'created_at' => date('Y-m-d H:i:s')],
+                ['key' => 'facebook_link',   'value' => '#', 'created_at' => date('Y-m-d H:i:s')],
+                ['key' => 'instagram_link',  'value' => '#', 'created_at' => date('Y-m-d H:i:s')],
+                ['key' => 'pinterest_link',  'value' => '#', 'created_at' => date('Y-m-d H:i:s')],
+            ];
+            $this->db->table('settings')->insertBatch($data);
+        }
     }
 
     public function down()

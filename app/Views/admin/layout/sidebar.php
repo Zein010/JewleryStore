@@ -11,6 +11,12 @@
                 <a href="<?= base_url('admin/products') ?>" class="list-group-item list-group-item-action list-group-item-light p-3 <?= strpos(uri_string(), 'admin/products') !== false ? 'active' : '' ?>">
                     <i class="bi bi-box-seam me-2"></i> Products
                 </a>
+                <a href="<?= base_url('admin/orders') ?>" class="list-group-item list-group-item-action list-group-item-light p-3 <?= strpos(uri_string(), 'admin/orders') !== false ? 'active' : '' ?>">
+                    <i class="bi bi-cart3 me-2"></i> Orders
+                </a>
+                <a href="<?= base_url('admin/messages') ?>" class="list-group-item list-group-item-action list-group-item-light p-3 <?= strpos(uri_string(), 'admin/messages') !== false ? 'active' : '' ?>">
+                    <i class="bi bi-envelope me-2"></i> Messages
+                </a>
                 <a href="<?= base_url('admin/settings') ?>" class="list-group-item list-group-item-action list-group-item-light p-3 <?= strpos(uri_string(), 'admin/settings') !== false ? 'active' : '' ?>">
                     <i class="bi bi-gear me-2"></i> Settings
                 </a>

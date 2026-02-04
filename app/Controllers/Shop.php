@@ -18,15 +18,16 @@ class Shop extends BaseController
 
     public function index()
     {
-        // Get Filter Params
-        $filters = [
-            'min_price' => $this->request->getGet('min_price'),
-            'max_price' => $this->request->getGet('max_price'),
-            'material'  => $this->request->getGet('material'),
-            'sort'      => $this->request->getGet('sort')
-        ];
+        // Get All Filter Params
+        $filters = $this->request->getGet();
+        if (!is_array($filters)) {
+            $filters = [];
+        }
 
-        // Use filterProducts with null categoryId for all products
+        // Get Dynamic Filters & Price Ranges
+        $dynamicData = $this->productModel->getDynamicFilters(null);
+
+        // Filter Products
         $products = $this->productModel->filterProducts(null, $filters);
 
         $data = [
@@ -34,6 +35,8 @@ class Shop extends BaseController
             'category_name' => 'All Collections',
             'products' => $products,
             'current_filters' => $filters,
+            'dynamic_filters' => $dynamicData['filters'],
+            'price_ranges' => $dynamicData['price_ranges'],
             'current_slug' => '' // Empty slug for main shop page
         ];
 
@@ -50,15 +53,16 @@ class Shop extends BaseController
         $categoryName = $category ? $category['name'] : ucfirst($slug);
         $categoryId = $category ? $category['id'] : null;
 
-        // Get Filter Params
-        $filters = [
-            'min_price' => $this->request->getGet('min_price'),
-            'max_price' => $this->request->getGet('max_price'),
-            'material'  => $this->request->getGet('material'),
-            'sort'      => $this->request->getGet('sort')
-        ];
+        // Get All Filter Params
+        $filters = $this->request->getGet();
+        if (!is_array($filters)) {
+            $filters = [];
+        }
 
-        // Use filterProducts instead of basic query
+        // Get Dynamic Filters & Price Ranges for this Category
+        $dynamicData = $this->productModel->getDynamicFilters($categoryId);
+
+        // Filter Products
         $products = $this->productModel->filterProducts($categoryId, $filters);
 
         $data = [
@@ -66,6 +70,8 @@ class Shop extends BaseController
             'category_name' => $categoryName,
             'products' => $products,
             'current_filters' => $filters, // Pass back to view to keep state
+            'dynamic_filters' => $dynamicData['filters'],
+            'price_ranges' => $dynamicData['price_ranges'],
             'current_slug' => $slug
         ];
 

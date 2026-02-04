@@ -48,6 +48,7 @@ class Categories extends BaseController
             'name'  => $this->request->getPost('name'),
             'slug'  => $this->request->getPost('slug'),
             'image' => $imageName,
+            'is_featured' => $this->request->getPost('is_featured') ? 1 : 0,
         ]);
 
         return redirect()->to('/admin/categories')->with('success', 'Category created successfully');
@@ -81,6 +82,7 @@ class Categories extends BaseController
             'id'    => $id,
             'name'  => $this->request->getPost('name'),
             'slug'  => $this->request->getPost('slug'),
+            'is_featured' => $this->request->getPost('is_featured') ? 1 : 0,
         ];
 
         $image = $this->request->getFile('image');

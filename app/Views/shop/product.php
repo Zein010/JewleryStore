@@ -57,9 +57,132 @@
                 </div>
 
                 <div class="mb-4">
-                    <button class="btn btn-dark rounded-0 px-5 py-3 text-uppercase" style="letter-spacing: 1px;">Add to Cart</button>
+                    <form action="<?= base_url('cart/add') ?>" method="post" class="d-inline">
+                        <input type="hidden" name="product_id" value="<?= $product['id'] ?>">
+                        
+                        <?php if (($product['customization_type'] ?? 'none') === 'text'): ?>
+                            <div class="mb-3">
+                                <label class="form-label font-serif text-gray-700">Name on piece <span class="text-danger">*</span></label>
+                                <?php 
+                                    $limit = $product['character_limit'] ?? 0;
+                                    $type = $product['limit_type'] ?? 'upto';
+                                    $placeholder = $type === 'exact' ? "Exactly $limit characters" : "Up to $limit characters";
+                                    if ($limit == 0) $placeholder = "Enter your text";
+                                ?>
+                                <div id="customization-inputs">
+                                    <div class="mb-2">
+                                        <label class="small text-muted mb-1">Item #1</label>
+                                        <input type="text" class="form-control customization-input" name="customization_text[]" 
+                                            placeholder="<?= $placeholder ?>" 
+                                            <?= $limit > 0 ? "maxlength='$limit'" : '' ?>
+                                            required>
+                                        <div class="form-text text-muted small text-end char-count"></div>
+                                    </div>
+                                </div>
+                                <div class="form-text text-muted small">
+                                    <?php if ($limit > 0): ?>
+                                        <?= $type === 'exact' ? "Must be exactly $limit characters." : "Maximum $limit characters." ?>
+                                    <?php else: ?>
+                                        Please enter text for each piece.
+                                    <?php endif; ?>
+                                </div>
+                            </div>
+                        <?php endif; ?>
+
+                        <div class="d-flex align-items-center">
+                            <div class="input-group me-3" style="width: 140px;">
+                                <button class="btn btn-outline-secondary" type="button" onclick="updateQuantity(-1)">-</button>
+                                <input type="number" class="form-control text-center" id="quantity" name="quantity" value="1" min="1" readonly>
+                                <button class="btn btn-outline-secondary" type="button" onclick="updateQuantity(1)">+</button>
+                            </div>
+                            <button type="submit" class="btn btn-dark rounded-0 px-5 py-3 text-uppercase" style="letter-spacing: 1px;">Add to Cart</button>
+                        </div>
+                    </form>
                     <button class="btn btn-outline-dark rounded-0 px-3 py-3 ms-2"><i class="far fa-heart"></i></button>
                 </div>
+                
+                <script>
+                    const quantityInput = document.getElementById('quantity');
+                    const customizationContainer = document.getElementById('customization-inputs');
+                    const isCustomizationEnabled = <?= ($product['customization_type'] ?? 'none') === 'text' ? 'true' : 'false' ?>;
+                    const limit = <?= $limit ?? 0 ?>;
+                    const type = '<?= $type ?? 'upto' ?>';
+                    const placeholder = '<?= $placeholder ?? '' ?>';
+
+                    function updateQuantity(change) {
+                        let currentQty = parseInt(quantityInput.value);
+                        let newQty = currentQty + change;
+                        
+                        if (newQty < 1) newQty = 1;
+                        quantityInput.value = newQty;
+                        
+                        if (isCustomizationEnabled) {
+                            updateCustomizationInputs(newQty);
+                        }
+                    }
+
+                    function updateCustomizationInputs(qty) {
+                        const currentInputs = customizationContainer.querySelectorAll('.customization-input');
+                        const currentCount = currentInputs.length;
+
+                        if (qty > currentCount) {
+                            // Add inputs
+                            for (let i = currentCount + 1; i <= qty; i++) {
+                                const div = document.createElement('div');
+                                div.className = 'mb-2';
+                                div.innerHTML = `
+                                    <label class="small text-muted mb-1">Item #${i}</label>
+                                    <input type="text" class="form-control customization-input" name="customization_text[]" 
+                                           placeholder="${placeholder}" 
+                                           ${limit > 0 ? "maxlength='" + limit + "'" : ''}
+                                           required>
+                                    <div class="form-text text-muted small text-end char-count"></div>
+                                `;
+                                customizationContainer.appendChild(div);
+                                attachValidation(div.querySelector('input'));
+                            }
+                        } else if (qty < currentCount) {
+                            // Remove inputs
+                            for (let i = currentCount; i > qty; i--) {
+                                customizationContainer.lastElementChild.remove();
+                            }
+                        }
+                    }
+
+                    function attachValidation(input) {
+                        if (limit > 0) {
+                            input.addEventListener('input', function() {
+                                const countDisplay = this.nextElementSibling;
+                                countDisplay.textContent = this.value.length + '/' + limit;
+                            });
+                        }
+                    }
+
+                    // Attach to initial input
+                    if (isCustomizationEnabled) {
+                        const initialInput = document.querySelector('.customization-input');
+                        if (initialInput) attachValidation(initialInput);
+
+                        // Form Submit Validation
+                        const addToCartForm = document.querySelector('form[action$="cart/add"]');
+                        addToCartForm.addEventListener('submit', function(e) {
+                            const inputs = document.querySelectorAll('.customization-input');
+                            for (let input of inputs) {
+                                const val = input.value.trim();
+                                if (val.length === 0) {
+                                    e.preventDefault();
+                                    alert('Please enter text for all items.');
+                                    return;
+                                }
+                                if (limit > 0 && type === 'exact' && val.length !== limit) {
+                                    e.preventDefault();
+                                    alert('All texts must be exactly ' + limit + ' characters long.');
+                                    return;
+                                }
+                            }
+                        });
+                    }
+                </script>
 
                 <div class="accordion accordion-flush mt-5" id="productDetails">
                     <div class="accordion-item">

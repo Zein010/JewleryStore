@@ -25,6 +25,10 @@
                 <label for="image" class="form-label">Image</label>
                 <input type="file" class="form-control" id="image" name="image">
             </div>
+            <div class="mb-3 form-check">
+                <input type="checkbox" class="form-check-input" id="is_featured" name="is_featured" value="1" <?= old('is_featured') ? 'checked' : '' ?>>
+                <label class="form-check-label" for="is_featured">Featured Category</label>
+            </div>
             <button type="submit" class="btn btn-primary">Save Category</button>
         </form>
     </div>

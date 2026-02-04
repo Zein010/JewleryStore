@@ -39,7 +39,12 @@
                         <span class="text-muted">No Image</span>
                     <?php endif; ?>
                 </td>
-                <td><?= $category['name'] ?></td>
+                <td>
+                    <?= $category['name'] ?>
+                    <?php if ($category['is_featured']): ?>
+                        <span class="badge bg-warning text-dark"><i class="bi bi-star-fill"></i> Featured</span>
+                    <?php endif; ?>
+                </td>
                 <td><?= $category['slug'] ?></td>
                 <td>
                     <a href="<?= base_url('admin/categories/edit/' . $category['id']) ?>" class="btn btn-sm btn-outline-secondary">Edit</a>

@@ -70,7 +70,51 @@
                 <label class="form-check-label" for="featured">Featured Product</label>
             </div>
 
+            <!-- Customization Settings -->
+            <div class="card p-3 mb-3 bg-light">
+                <h6 class="mb-3">Customization Options</h6>
+                <div class="mb-3">
+                    <label for="customization_type" class="form-label">Customization Type</label>
+                    <select class="form-select" id="customization_type" name="customization_type">
+                        <option value="none">None</option>
+                        <option value="text">Text Required</option>
+                    </select>
+                </div>
+                
+                <div id="text_constraints" style="display: none;">
+                     <div class="mb-3">
+                        <label for="character_limit" class="form-label">Character/Item Limit</label>
+                        <select class="form-select" id="character_limit" name="character_limit">
+                            <option value="1">1 Letter</option>
+                            <option value="2">2 Letters</option>
+                            <option value="3">3 Letters</option>
+                            <option value="4">4 Letters</option>
+                            <option value="5">5 Letters</option>
+                            <option value="0">Sentence (No strict limit)</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label for="limit_type" class="form-label">Constraint Type</label>
+                        <select class="form-select" id="limit_type" name="limit_type">
+                            <option value="exact">Exactly</option>
+                            <option value="upto">Up To</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
             <button type="submit" class="btn btn-primary">Save Product</button>
+
+            <script>
+                document.getElementById('customization_type').addEventListener('change', function() {
+                    const constraints = document.getElementById('text_constraints');
+                    if (this.value === 'text') {
+                        constraints.style.display = 'block';
+                    } else {
+                        constraints.style.display = 'none';
+                    }
+                });
+            </script>
         </form>
     </div>
 </div>
