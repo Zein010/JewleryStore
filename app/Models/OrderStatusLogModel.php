@@ -4,14 +4,14 @@ namespace App\Models;
 
 use CodeIgniter\Model;
 
-class OrderModel extends Model
+class OrderStatusLogModel extends Model
 {
-    protected $table            = 'orders';
+    protected $table            = 'order_status_logs';
     protected $primaryKey       = 'id';
     protected $useAutoIncrement = true;
     protected $returnType       = 'array';
     protected $useSoftDeletes   = false;
-    protected $allowedFields    = ['customer_name', 'customer_email', 'country', 'phone', 'shipping_address', 'customer_note', 'admin_note', 'total_amount', 'status'];
+    protected $allowedFields    = ['order_id', 'admin_name', 'old_status', 'new_status'];
 
     protected $useTimestamps = true;
     protected $createdField  = 'created_at';

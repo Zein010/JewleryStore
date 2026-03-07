@@ -20,6 +20,10 @@ $routes->post('cart/update', 'Cart::update');
 $routes->get('cart/remove/(:any)', 'Cart::remove/$1');
 $routes->get('cart/clear', 'Cart::clear');
 
+// Favorites Routes
+$routes->get('favorites', 'Favorites::index');
+$routes->post('favorites/toggle', 'Favorites::toggle');
+
 // Checkout Routes
 $routes->get('checkout', 'Checkout::index');
 $routes->post('checkout/process', 'Checkout::process');
@@ -57,10 +61,23 @@ $routes->group('admin', ['namespace' => 'App\Controllers\Admin'], function ($rou
         // Orders Routes
         $routes->get('orders', 'Orders::index');
         $routes->get('orders/show/(:num)', 'Orders::show/$1');
+        $routes->post('orders/update-note/(:num)', 'Orders::updateNote/$1');
+        $routes->post('orders/update-status/(:num)', 'Orders::updateStatus/$1');
 
         // Settings Routes
         $routes->get('settings', 'Settings::index');
         $routes->post('settings/update', 'Settings::update');
+
+        // Admin Users Routes
+        $routes->get('users', 'Users::index');
+        $routes->get('users/create', 'Users::create');
+        $routes->post('users/store', 'Users::store');
+        $routes->get('users/edit/(:num)', 'Users::edit/$1');
+        $routes->post('users/update/(:num)', 'Users::update/$1');
+        $routes->get('users/delete/(:num)', 'Users::delete/$1');
+
+        // Login History
+        $routes->get('login-history', 'LoginHistory::index');
 
         // Contact Messages
         $routes->get('messages', 'ContactMessages::index');

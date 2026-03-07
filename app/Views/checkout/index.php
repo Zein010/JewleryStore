@@ -60,6 +60,10 @@
                             <label for="zip" class="form-label">Zip <span class="text-danger">*</span></label>
                             <input type="text" class="form-control rounded-0" id="zip" name="zip" value="<?= old('zip') ?>" required>
                         </div>
+                        <div class="col-12 mt-4">
+                            <label for="customer_note" class="form-label">Order Notes (Optional)</label>
+                            <textarea class="form-control rounded-0" id="customer_note" name="customer_note" rows="3" placeholder="Notes about your order, e.g. special notes for delivery."><?= old('customer_note') ?></textarea>
+                        </div>
                     </div>
                 </div>
             </div>

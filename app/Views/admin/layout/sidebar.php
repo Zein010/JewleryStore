@@ -20,6 +20,12 @@
                 <a href="<?= base_url('admin/settings') ?>" class="list-group-item list-group-item-action list-group-item-light p-3 <?= strpos(uri_string(), 'admin/settings') !== false ? 'active' : '' ?>">
                     <i class="bi bi-gear me-2"></i> Settings
                 </a>
+                <a href="<?= base_url('admin/users') ?>" class="list-group-item list-group-item-action list-group-item-light p-3 <?= strpos(uri_string(), 'admin/users') !== false ? 'active' : '' ?>">
+                    <i class="bi bi-people me-2"></i> Admin Users
+                </a>
+                <a href="<?= base_url('admin/login-history') ?>" class="list-group-item list-group-item-action list-group-item-light p-3 <?= strpos(uri_string(), 'admin/login-history') !== false ? 'active' : '' ?>">
+                    <i class="bi bi-clock-history me-2"></i> Login History
+                </a>
                 <a href="<?= base_url('admin/logout') ?>" class="list-group-item list-group-item-action list-group-item-light p-3 text-danger">
                     <i class="bi bi-box-arrow-right me-2"></i> Logout
                 </a>

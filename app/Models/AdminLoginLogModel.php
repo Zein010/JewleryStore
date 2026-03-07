@@ -4,16 +4,16 @@ namespace App\Models;
 
 use CodeIgniter\Model;
 
-class OrderModel extends Model
+class AdminLoginLogModel extends Model
 {
-    protected $table            = 'orders';
+    protected $table            = 'admin_login_logs';
     protected $primaryKey       = 'id';
     protected $useAutoIncrement = true;
     protected $returnType       = 'array';
     protected $useSoftDeletes   = false;
-    protected $allowedFields    = ['customer_name', 'customer_email', 'country', 'phone', 'shipping_address', 'customer_note', 'admin_note', 'total_amount', 'status'];
+    protected $allowedFields    = ['admin_id', 'ip_address', 'user_agent'];
 
     protected $useTimestamps = true;
     protected $createdField  = 'created_at';
-    protected $updatedField  = 'updated_at';
+    protected $updatedField  = '';
 }

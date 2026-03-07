@@ -75,6 +75,7 @@ class Checkout extends BaseController
             'country' => $this->request->getPost('country'),
             'phone' => $this->request->getPost('phone'),
             'shipping_address' => $shippingAddress,
+            'customer_note' => $this->request->getPost('customer_note'),
             'total_amount' => $total,
             'status' => 'pending'
         ]);
@@ -99,8 +100,11 @@ class Checkout extends BaseController
             $this->sendOrderEmails($orderId, [
                 'name' => $customerName,
                 'email' => $this->request->getPost('email'),
-                'total' => $total,
+                'phone' => $this->request->getPost('phone'),
+                'country' => $this->request->getPost('country'),
                 'shipping_address' => $shippingAddress,
+                'customer_note' => $this->request->getPost('customer_note'),
+                'total' => $total,
                 'id' => $orderId
             ], $cart);
 
@@ -191,11 +195,27 @@ class Checkout extends BaseController
 
         // Send to Admin
         if (!empty($settings['admin_email_notify'])) {
+            $adminLink = base_url('admin/orders/show/' . $orderId);
+            $adminMessage = "
+                <h3>New Order Received!</h3>
+                <p><strong>Order ID:</strong> #" . $orderId . "</p>
+                <p><strong>Customer Name:</strong> " . esc($orderData['name']) . "</p>
+                <p><strong>Customer Email:</strong> " . esc($orderData['email']) . "</p>
+                <p><strong>Phone:</strong> " . esc($orderData['phone'] ?? 'N/A') . "</p>
+                <p><strong>Country:</strong> " . esc($orderData['country'] ?? 'N/A') . "</p>
+                <p><strong>Shipping Address:</strong><br>" . nl2br(esc($orderData['shipping_address'])) . "</p>
+                <p><strong>Customer Note:</strong><br>" . nl2br(esc($orderData['customer_note'] ?? 'None')) . "</p>
+                <br>
+                <p><a href='" . $adminLink . "' style='display: inline-block; padding: 10px 20px; background-color: #222; color: #fff; text-decoration: none; border-radius: 4px; text-transform: uppercase; font-size: 12px; letter-spacing: 1px;'>View Order in Admin Panel</a></p>
+                <hr style='margin: 30px 0;'>
+                <h4>Order Summary:</h4>
+            ";
+
             $email->clear();
             $email->setFrom($settings['smtp_user'], $settings['company_name'] ?? 'Luxe & Co');
             $email->setTo($settings['admin_email_notify']);
             $email->setSubject("New Order Received #" . $orderId);
-            $email->setMessage("<h3>New Order Received!</h3><p>Order #" . $orderId . " from " . esc($orderData['name']) . "</p>" . $message);
+            $email->setMessage($adminMessage . $message);
             $email->send();
         }
     }

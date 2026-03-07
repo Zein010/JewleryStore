@@ -6,7 +6,10 @@
                         <div class="carousel-inner">
                             <?php foreach ($images as $index => $img): ?>
                                 <div class="carousel-item <?= $index === 0 ? 'active' : '' ?>">
-                                    <div class="product-img-wrapper" style="height: 500px; background: #fafafa; display: flex; align-items: center; justify-content: center;">
+                                    <div class="product-img-wrapper position-relative" style="height: 500px; background: #fafafa; display: flex; align-items: center; justify-content: center;">
+                                        <?php if (in_array($product['id'], session()->get('favorites') ?? [])): ?>
+                                            <span class="badge bg-danger position-absolute top-0 start-0 m-3" style="font-size: 0.8rem; letter-spacing: 1px;"><i class="fas fa-heart me-1"></i> Favorite</span>
+                                        <?php endif; ?>
                                         <img src="<?= base_url('uploads/products/' . $img['image']) ?>" class="d-block w-100" alt="<?= esc($product['name']) ?>" style="max-height: 100%; max-width: 100%; object-fit: contain;">
                                     </div>
                                 </div>
@@ -39,7 +42,10 @@
                         </div>
                     <?php endif; ?>
                 <?php else: ?>
-                    <div class="product-img-wrapper" style="height: 500px; background: #fafafa; display: flex; align-items: center; justify-content: center;">
+                    <div class="product-img-wrapper position-relative" style="height: 500px; background: #fafafa; display: flex; align-items: center; justify-content: center;">
+                        <?php if (in_array($product['id'], session()->get('favorites') ?? [])): ?>
+                            <span class="badge bg-danger position-absolute top-0 start-0 m-3" style="font-size: 0.8rem; letter-spacing: 1px;"><i class="fas fa-heart me-1"></i> Favorite</span>
+                        <?php endif; ?>
                         <img src="<?= base_url('uploads/products/' . $product['image']) ?>" alt="<?= esc($product['name']) ?>" style="max-height: 80%; max-width: 100%;">
                     </div>
                 <?php endif; ?>
@@ -89,7 +95,7 @@
                             </div>
                         <?php endif; ?>
 
-                        <div class="d-flex align-items-center">
+                        <div class="d-flex align-items-center mb-3">
                             <div class="input-group me-3" style="width: 140px;">
                                 <button class="btn btn-outline-secondary" type="button" onclick="updateQuantity(-1)">-</button>
                                 <input type="number" class="form-control text-center" id="quantity" name="quantity" value="1" min="1" readonly>
@@ -98,7 +104,14 @@
                             <button type="submit" class="btn btn-dark rounded-0 px-5 py-3 text-uppercase" style="letter-spacing: 1px;">Add to Cart</button>
                         </div>
                     </form>
-                    <button class="btn btn-outline-dark rounded-0 px-3 py-3 ms-2"><i class="far fa-heart"></i></button>
+                    
+                    <form action="<?= base_url('favorites/toggle') ?>" method="post" class="d-inline">
+                        <input type="hidden" name="product_id" value="<?= $product['id'] ?>">
+                        <?php $isFavorite = in_array($product['id'], session()->get('favorites') ?? []); ?>
+                        <button type="submit" class="btn <?= $isFavorite ? 'btn-danger' : 'btn-outline-dark' ?> rounded-0 px-3 py-3" title="<?= $isFavorite ? 'Remove from Favorites' : 'Add to Favorites' ?>">
+                            <i class="<?= $isFavorite ? 'fas fa-heart' : 'far fa-heart' ?>"></i>
+                        </button>
+                    </form>
                 </div>
                 
                 <script>
@@ -184,29 +197,21 @@
                     }
                 </script>
 
-                <div class="accordion accordion-flush mt-5" id="productDetails">
-                    <div class="accordion-item">
-                        <h2 class="accordion-header">
-                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#details">
-                                Product Details
-                            </button>
-                        </h2>
-                        <div id="details" class="accordion-collapse collapse" data-bs-parent="#productDetails">
-                            <div class="accordion-body small text-muted">
-                                <?php 
-                                $details = json_decode($product['details'] ?? '[]', true);
-                                if (!empty($details)): 
-                                    foreach ($details as $key => $value):
-                                ?>
-                                    <strong><?= esc($key) ?>:</strong> <?= esc($value) ?><br>
-                                <?php 
-                                    endforeach; 
-                                else:
-                                ?>
-                                    No additional details available.
-                                <?php endif; ?>
-                            </div>
-                        </div>
+                <div class="mt-5">
+                    <h5 class="mb-3 brand-font">Product Details</h5>
+                    <div class="small text-muted" style="line-height: 1.8;">
+                        <?php 
+                        $details = json_decode($product['details'] ?? '[]', true);
+                        if (!empty($details)): 
+                            foreach ($details as $key => $value):
+                        ?>
+                            <div class="mb-2"><strong><?= esc($key) ?>:</strong> <?= esc($value) ?></div>
+                        <?php 
+                            endforeach; 
+                        else:
+                        ?>
+                            No additional details available.
+                        <?php endif; ?>
                     </div>
                 </div>
 

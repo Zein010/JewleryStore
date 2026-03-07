@@ -33,7 +33,7 @@ class CreateOrderTables extends Migration
             ],
             'status' => [
                 'type'       => 'ENUM',
-                'constraint' => ['pending', 'completed', 'cancelled'],
+                'constraint' => ['pending', 'in_progress', 'completed', 'cancelled'],
                 'default'    => 'pending',
             ],
             'created_at' => [

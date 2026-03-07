@@ -36,6 +36,15 @@ class Auth extends BaseController
                     'isLoggedIn' => true
                 ];
                 $session->set($ses_data);
+
+                // Log the login event
+                $loginLogModel = new \App\Models\AdminLoginLogModel();
+                $loginLogModel->insert([
+                    'admin_id'   => $data['id'],
+                    'ip_address' => $this->request->getIPAddress(),
+                    'user_agent' => substr((string) $this->request->getUserAgent(), 0, 255)
+                ]);
+
                 return redirect()->to('/admin/dashboard');
             } else {
                 $session->setFlashdata('error', 'Wrong Password');

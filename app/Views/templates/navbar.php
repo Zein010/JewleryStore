@@ -20,6 +20,11 @@
                         </a>
                     </li>
                     <li class="nav-item"><a class="nav-link" href="<?= base_url('shop/category/atelier') ?>">The Atelier</a></li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="<?= base_url('favorites') ?>">
+                            <i class="far fa-heart"></i> Favorites
+                        </a>
+                    </li>
                     <li class="nav-item"><a class="nav-link" href="<?= base_url('contact') ?>">Contact</a></li>
                 </ul>
             </div>
