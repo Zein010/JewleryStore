@@ -10,6 +10,7 @@
                     <?php if (!empty($header_category)): ?>
                         <li class="nav-item"><a class="nav-link" href="<?= base_url('shop/category/' . $header_category['slug']) ?>"><?= esc($header_category['name']) ?></a></li>
                     <?php endif; ?>
+                    <li class="nav-item"><a class="nav-link" href="<?= base_url('shop/category/atelier') ?>">The Atelier</a></li>
                     <li class="nav-item">
                         <a class="navbar-brand brand-font mx-4" href="<?= base_url('/') ?>">
                             <?php if (!empty($site_settings['company_logo'])): ?>
@@ -19,13 +20,13 @@
                             <?php endif; ?>
                         </a>
                     </li>
-                    <li class="nav-item"><a class="nav-link" href="<?= base_url('shop/category/atelier') ?>">The Atelier</a></li>
                     <li class="nav-item">
                         <a class="nav-link" href="<?= base_url('favorites') ?>">
                             <i class="far fa-heart"></i> Favorites
                         </a>
                     </li>
                     <li class="nav-item"><a class="nav-link" href="<?= base_url('contact') ?>">Contact</a></li>
+                    <li class="nav-item"><a class="nav-link" href="<?= base_url('story') ?>">Story</a></li>
                 </ul>
             </div>
         </div>
