@@ -32,7 +32,7 @@
             <!-- SECTION 2 -->
             <div class="row g-5 align-items-center mb-5 flex-md-row-reverse">
                 <div class="col-md-6" data-aos="fade-left">
-                    <img src="<?= base_url('assets/images/story2.jpg') ?>" class="img-fluid" alt="Shams Necklace">
+                    <img src="<?= base_url('uploads/story/shams.png') ?>" class="img-fluid" alt="Shams Necklace">
                 </div>
 
                 <div class="col-md-6" data-aos="fade-right">
