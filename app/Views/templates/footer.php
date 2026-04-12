@@ -5,7 +5,7 @@
             <div class="col-lg-4 col-md-6" data-aos="fade-up">
                 <h4 class="brand-font mb-4">
                     <?php if(!empty($site_settings['company_logo'])): ?>
-                        <img src="<?= base_url('uploads/settings/' . $site_settings['company_logo']) ?>" alt="<?= esc($site_settings['company_name']) ?>" style="height: 40px;">
+                        <img src="<?= base_url('uploads/settings/' . $site_settings['company_logo']) ?>" alt="<?= esc($site_settings['company_name']) ?>" style="height: 80px;">
                     <?php else: ?>
                         <?= esc($site_settings['company_name'] ?? 'LUXE & CO.') ?>
                     <?php endif; ?>
@@ -31,22 +31,22 @@
             <div class="col-lg-2 col-md-6" data-aos="fade-up" data-aos-delay="100">
                 <h6 class="text-uppercase small fw-bold mb-4" style="letter-spacing: 2px;">Customer Care</h6>
                 <ul class="list-unstyled footer-links">
-                    <li><a href="#">Contact Us</a></li>
-                    <li><a href="#">Track Your Order</a></li>
-                    <li><a href="#">Book an Appointment</a></li>
-                    <li><a href="#">Shipping & Returns</a></li>
-                    <li><a href="#">Jewelry Care Guide</a></li>
+                    <li><a href="<?= base_url('contact') ?>">Contact Us</a></li>
+                    <!-- <li><a href="#">Track Your Order</a></li> -->
+                    <!-- <li><a href="#">Book an Appointment</a></li> -->
+                    <!-- <li><a href="#">Shipping & Returns</a></li>
+                    <li><a href="#">Jewelry Care Guide</a></li> -->
                 </ul>
             </div>
 
             <div class="col-lg-2 col-md-6" data-aos="fade-up" data-aos-delay="200">
                 <h6 class="text-uppercase small fw-bold mb-4" style="letter-spacing: 2px;">The Maison</h6>
                 <ul class="list-unstyled footer-links">
-                    <li><a href="#">Our Story</a></li>
-                    <li><a href="#">Store Locator</a></li>
-                    <li><a href="#">Sustainability</a></li>
-                    <li><a href="#">Careers</a></li>
-                    <li><a href="#">Journal</a></li>
+                    <li><a href="<?= base_url('story') ?>">Our Story</a></li>
+                    <!-- <li><a href="#">Store Locator</a></li> -->
+                    <!-- <li><a href="#">Sustainability</a></li> -->
+                    <!-- <li><a href="#">Careers</a></li> -->
+                    <!-- <li><a href="#">Journal</a></li> -->
                 </ul>
             </div>
 
