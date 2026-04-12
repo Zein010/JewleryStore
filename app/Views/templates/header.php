@@ -49,7 +49,7 @@
             font-weight: 700;
         }
         .navbar-brand img {
-            max-height: 50px;
+            max-height: 80px;
         }
 
         /* Footer */

@@ -14,7 +14,7 @@
                     <li class="nav-item">
                         <a class="navbar-brand brand-font mx-4" href="<?= base_url('/') ?>">
                             <?php if (!empty($site_settings['company_logo'])): ?>
-                                <img src="<?= base_url('uploads/settings/' . $site_settings['company_logo']) ?>" alt="<?= esc($site_settings['company_name']) ?>" style="max-height: 50px;">
+                                <img src="<?= base_url('uploads/settings/' . $site_settings['company_logo']) ?>" alt="<?= esc($site_settings['company_name']) ?>" style="max-height: 80px;">
                             <?php else: ?>
                                 <?= esc($site_settings['company_name'] ?? 'LUXE & CO.') ?>
                             <?php endif; ?>
