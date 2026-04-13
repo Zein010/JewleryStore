@@ -11,6 +11,7 @@ $routes->get('/shop/category/(:segment)', 'Shop::category/$1');
 $routes->get('/product/(:segment)', 'Product::index/$1');
 $routes->get('/contact', 'Contact::index');
 $routes->get('/story', 'Story::index');
+$routes->get('/warranty', 'Warranty::index');
 $routes->post('/contact/send', 'Contact::send');
 
 

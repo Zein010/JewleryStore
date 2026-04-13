@@ -34,8 +34,8 @@
                     <li><a href="<?= base_url('contact') ?>">Contact Us</a></li>
                     <!-- <li><a href="#">Track Your Order</a></li> -->
                     <!-- <li><a href="#">Book an Appointment</a></li> -->
-                    <!-- <li><a href="#">Shipping & Returns</a></li>
-                    <li><a href="#">Jewelry Care Guide</a></li> -->
+                    <li><a href="<?= base_url('warranty') ?>">Craftsmanship & Care</a></li>
+                    <!-- <li><a href="#">Jewelry Care Guide</a></li> -->
                 </ul>
             </div>
 
