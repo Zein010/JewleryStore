@@ -112,5 +112,74 @@
             });
         });
     </script>
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+
+            // Make sure Swiper library is loaded
+            if (typeof Swiper === 'undefined') {
+                console.warn('Swiper JS not loaded');
+                return;
+            }
+
+            // Make sure the slider exists on the page
+            const swiperContainer = document.querySelector('.showcaseSwiper');
+
+            if (!swiperContainer) {
+                return;
+            }
+
+            const swiper = new Swiper('.showcaseSwiper', {
+                loop: true,
+                centeredSlides: true,
+                slidesPerView: 1.2,
+                spaceBetween: 20,
+
+                autoplay: {
+                    delay: 5000,
+                    disableOnInteraction: false
+                },
+
+                pagination: {
+                    el: '.swiper-pagination',
+                    clickable: true
+                },
+
+                navigation: {
+                    nextEl: '.swiper-button-next',
+                    prevEl: '.swiper-button-prev'
+                },
+
+                breakpoints: {
+                    768: {
+                        slidesPerView: 2
+                    },
+                    1200: {
+                        slidesPerView: 3
+                    }
+                }
+            });
+
+            function playActiveVideo() {
+                document
+                    .querySelectorAll('.showcaseSwiper video')
+                    .forEach(video => {
+                        video.pause();
+                    });
+
+                const activeVideo = document.querySelector(
+                    '.showcaseSwiper .swiper-slide-active video'
+                );
+
+                if (activeVideo) {
+                    activeVideo.play().catch(() => {});
+                }
+            }
+
+            playActiveVideo();
+
+            swiper.on('slideChangeTransitionEnd', playActiveVideo);
+        });
+        </script>
 </body>
 </html>

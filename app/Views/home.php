@@ -5,7 +5,50 @@
             <a href="<?= base_url('shop') ?>" class="btn-luxury">Discover Now</a>
         </div>
     </header>
+    <section class="video-showcase py-5">
 
+        <div class="text-center mb-5" data-aos="fade-up">
+            <h2 class="display-6">Our Work</h2>
+            <div style="width:40px;height:2px;background:var(--gold);margin:15px auto;"></div>
+        </div>
+
+        <div class="swiper showcaseSwiper">
+            <div class="swiper-wrapper">
+
+                <div class="swiper-slide">
+                    <video muted loop playsinline preload="metadata">
+                        <source src="<?= base_url('uploads/videos/work1.mp4') ?>" type="video/mp4">
+                    </video>
+                </div>
+
+                <div class="swiper-slide">
+                    <video muted loop playsinline preload="metadata">
+                        <source src="<?= base_url('uploads/videos/work2.mp4') ?>" type="video/mp4">
+                    </video>
+                </div>
+
+                <div class="swiper-slide">
+                    <video muted loop playsinline preload="metadata">
+                        <source src="<?= base_url('uploads/videos/work3.mp4') ?>" type="video/mp4">
+                    </video>
+                </div>
+
+                <div class="swiper-slide">
+                    <video muted loop playsinline preload="metadata">
+                        <source src="<?= base_url('uploads/videos/work4.mp4') ?>" type="video/mp4">
+                    </video>
+                </div>
+
+            </div>
+
+            <div class="swiper-pagination"></div>
+
+            <div class="swiper-button-next"></div>
+            <div class="swiper-button-prev"></div>
+
+        </div>
+
+    </section>
     <section class="container my-5 py-5">
         <div class="text-center mb-5" data-aos="fade-up">
             <h2 class="display-6">Shop by Category</h2>
@@ -158,4 +201,36 @@
         }
         .product-img-wrapper img { width: 100%; object-fit: contain; max-height: 100%; }
         .product-price { color: var(--gold); font-weight: 500; }
+        
+        /* courasel  */
+        .video-showcase {
+            background: #fafafa;
+        }
+
+        .showcaseSwiper {
+            width: 100%;
+            padding-bottom: 50px;
+        }
+
+        .showcaseSwiper .swiper-slide {
+            border-radius: 16px;
+            overflow: hidden;
+            background: #000;
+        }
+
+        .showcaseSwiper video {
+            width: 100%;
+            height: 600px;
+            object-fit: cover;
+            display: block;
+        }
+
+        .swiper-button-next,
+        .swiper-button-prev {
+            color: var(--gold);
+        }
+
+        .swiper-pagination-bullet-active {
+            background: var(--gold);
+        }
     </style>
