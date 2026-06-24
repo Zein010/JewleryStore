@@ -135,11 +135,6 @@
                 slidesPerView: 1.2,
                 spaceBetween: 20,
 
-                autoplay: {
-                    delay: 5000,
-                    disableOnInteraction: false
-                },
-
                 pagination: {
                     el: '.swiper-pagination',
                     clickable: true
@@ -165,6 +160,7 @@
                     .querySelectorAll('.showcaseSwiper video')
                     .forEach(video => {
                         video.pause();
+                        video.currentTime = 0;
                     });
 
                 const activeVideo = document.querySelector(
@@ -173,6 +169,10 @@
 
                 if (activeVideo) {
                     activeVideo.play().catch(() => {});
+
+                    activeVideo.onended = function () {
+                    swiper.slideNext();
+                    };
                 }
             }
 

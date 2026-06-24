@@ -16,25 +16,25 @@
             <div class="swiper-wrapper">
 
                 <div class="swiper-slide">
-                    <video  loop playsinline preload="metadata">
+                    <video playsinline preload="metadata">
                         <source src="<?= base_url('assets/videos/work1.mp4') ?>" type="video/mp4">
                     </video>
                 </div>
 
                 <div class="swiper-slide">
-                    <video  loop playsinline preload="metadata">
+                    <video   playsinline preload="metadata">
                         <source src="<?= base_url('assets/videos/work1.mp4') ?>" type="video/mp4">
                     </video>
                 </div>
 
                 <div class="swiper-slide">
-                    <video  loop playsinline preload="metadata">
+                    <video   playsinline preload="metadata">
                         <source src="<?= base_url('ass/videos/work1.mp4') ?>" type="video/mp4">
                     </video>
                 </div>
 
                 <div class="swiper-slide">
-                    <video  loop playsinline preload="metadata">
+                    <video   playsinline preload="metadata">
                         <source src="<?= base_url('uploads/videos/work1.mp4') ?>" type="video/mp4">
                     </video>
                 </div>
