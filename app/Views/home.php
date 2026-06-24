@@ -16,25 +16,25 @@
             <div class="swiper-wrapper">
 
                 <div class="swiper-slide">
-                    <video muted loop playsinline preload="metadata">
+                    <video  loop playsinline preload="metadata">
                         <source src="<?= base_url('assets/videos/work1.mp4') ?>" type="video/mp4">
                     </video>
                 </div>
 
                 <div class="swiper-slide">
-                    <video muted loop playsinline preload="metadata">
+                    <video  loop playsinline preload="metadata">
                         <source src="<?= base_url('assets/videos/work1.mp4') ?>" type="video/mp4">
                     </video>
                 </div>
 
                 <div class="swiper-slide">
-                    <video muted loop playsinline preload="metadata">
+                    <video  loop playsinline preload="metadata">
                         <source src="<?= base_url('ass/videos/work1.mp4') ?>" type="video/mp4">
                     </video>
                 </div>
 
                 <div class="swiper-slide">
-                    <video muted loop playsinline preload="metadata">
+                    <video  loop playsinline preload="metadata">
                         <source src="<?= base_url('uploads/videos/work1.mp4') ?>" type="video/mp4">
                     </video>
                 </div>
@@ -86,7 +86,7 @@
                 <?php endforeach; ?>
             <?php else: ?>
                 <div class="col-12 text-center">
-                    <p class="text-muted">No categories found.</p>
+                    <p class="text-">No categories found.</p>
                 </div>
             <?php endif; ?>
         </div>
