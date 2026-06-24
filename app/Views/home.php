@@ -23,19 +23,13 @@
 
                 <div class="swiper-slide">
                     <video   playsinline preload="metadata">
-                        <source src="<?= base_url('assets/videos/work1.mp4') ?>" type="video/mp4">
+                        <source src="<?= base_url('assets/videos/work2.mp4') ?>" type="video/mp4">
                     </video>
                 </div>
 
                 <div class="swiper-slide">
                     <video   playsinline preload="metadata">
-                        <source src="<?= base_url('ass/videos/work1.mp4') ?>" type="video/mp4">
-                    </video>
-                </div>
-
-                <div class="swiper-slide">
-                    <video   playsinline preload="metadata">
-                        <source src="<?= base_url('uploads/videos/work1.mp4') ?>" type="video/mp4">
+                        <source src="<?= base_url('uploads/videos/work3.mp4') ?>" type="video/mp4">
                     </video>
                 </div>
 
