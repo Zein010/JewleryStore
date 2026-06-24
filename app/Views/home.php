@@ -29,7 +29,7 @@
 
                 <div class="swiper-slide">
                     <video   playsinline preload="metadata">
-                        <source src="<?= base_url('uploads/videos/work3.mp4') ?>" type="video/mp4">
+                        <source src="<?= base_url('assets/videos/work3.mp4') ?>" type="video/mp4">
                     </video>
                 </div>
 
